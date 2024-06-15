@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h2{
+            text-align: center;
+        }
+        div{
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        input{
+            padding: 10px;
+            margin-right: 10px;
+        }
+        button{
+            padding: 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <h2>
+        Weather App Using Open Weather
+    </h2>
+    <!-- Ui for Weather -->
+    <div>
+        <input type="text" id="city" placeholder="Enter City">
+        <button onclick="getWeather()">Get Weather</button>
+    </div>
+    <div>
+        <h2 id="cityName"></h2>
+        <h2 id="temp"></h2>
+        <h2 id="desc"></h2>
+    </div>
+    <script>
+        function getWeather(){
+            let city = document.getElementById('city').value;
+            fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById('cityName').innerText = data.name;
+                document.getElementById('temp').innerText = data.main.temp;
+                document.getElementById('desc').innerText = data.weather[0].description;
+            })
+        }   
+    </script>
+</body>
+</html>
